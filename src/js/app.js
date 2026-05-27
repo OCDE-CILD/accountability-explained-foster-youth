@@ -1351,8 +1351,8 @@
    clearMembershipSceneTimers();
    }
    
-   function playMembershipMotion() {
-    ();
+  function playMembershipMotion() {
+  stopSceneAudio();
     
    if (membershipAutoTimer) {
      clearTimeout(membershipAutoTimer);
