@@ -331,14 +331,124 @@ function renderGuidedIntro() {
       </div>
     `;
   }
-   
+
+  function renderWhyMatters() {
+    document.getElementById("app").innerHTML = `
+      <div class="screen">
+        <div class="breadcrumb">Foster Youth / Guided Walkthrough</div>
+  
+        <h1>Why Foster Youth Data Can Feel Confusing</h1>
+  
+        <p>
+          District and school leaders often see Foster Youth results that seem surprising,
+          inconsistent, or difficult to interpret at first glance.
+        </p>
+  
+        <div class="three-col-grid">
+  
+          <button class="info-box info-box-button"
+            onclick="showWhyDetail('counts')">
+  
+            <strong>Counts may not match expectations</strong>
+  
+            <p>
+              Local understanding of Foster Youth enrollment may differ from official CALPADS identification.
+            </p>
+  
+          </button>
+  
+          <button class="info-box info-box-button"
+            onclick="showWhyDetail('mobility')">
+  
+            <strong>Mobility affects interpretation</strong>
+  
+            <p>
+              Enrollment changes and student movement can significantly affect results.
+            </p>
+  
+          </button>
+  
+          <button class="info-box info-box-button"
+            onclick="showWhyDetail('smallgroups')">
+  
+            <strong>Small student groups change quickly</strong>
+  
+            <p>
+              One or two students may dramatically affect indicator results.
+            </p>
+  
+          </button>
+  
+        </div>
+  
+        <div id="why-detail" style="margin-top:24px;"></div>
+  
+        ${buildModuleBottomBar({
+          leftLabel: "Back",
+          leftAction: "renderGuidedIntro()",
+          centerHtml: `<button class="primary-btn" onclick="renderMembershipVisual(true)">Continue</button>`,
+          backAction: "renderGuidedIntro()",
+          nextAction: "renderMembershipVisual(true)",
+          homeAction: "renderHome()"
+        })}
+      </div>
+    `;
+  }
+
+  function showWhyDetail(type) {
+  
+    let content = "";
+  
+    if (type === "counts") {
+      content = `
+        <div class="info-box">
+          <strong>Why counts may differ</strong>
+  
+          <p>
+            Foster Youth identification is based on official state matching processes,
+            not only local awareness of a student’s situation.
+          </p>
+        </div>
+      `;
+    }
+  
+    if (type === "mobility") {
+      content = `
+        <div class="info-box">
+          <strong>Mobility changes the picture</strong>
+  
+          <p>
+            Foster Youth student groups may change during the reporting period,
+            which can affect accountability results and interpretation.
+          </p>
+        </div>
+      `;
+    }
+  
+    if (type === "smallgroups") {
+      content = `
+        <div class="info-box">
+          <strong>Small student groups shift quickly</strong>
+  
+          <p>
+            When student groups are small, a small number of students may
+            significantly change indicator results.
+          </p>
+        </div>
+      `;
+    }
+  
+    document.getElementById("why-detail").innerHTML = content;
+  }
+
    function renderInclusionVisual(autoPlay = true, source = "basics") {
    inclusionSource = source;
    renderInclusionIntro();
    }
 
   function renderMembershipVisual(autoPlay = true, source = "basics") {
-    renderInclusionVisual(autoPlay, source);
+    membershipSource = source;
+    renderWhyMatters();
   }
    
    function renderInclusionIntro() {
