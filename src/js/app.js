@@ -441,15 +441,212 @@ function renderGuidedIntro() {
     document.getElementById("why-detail").innerHTML = content;
   }
 
-   function renderInclusionVisual(autoPlay = true, source = "basics") {
-   inclusionSource = source;
-   renderInclusionIntro();
-   }
+     function renderInclusionVisual(autoPlay = true, source = "basics") {
+     inclusionSource = source;
+     renderInclusionIntro();
+     }
 
-  function renderMembershipVisual(autoPlay = true, source = "basics") {
-    membershipSource = source;
-    renderWhyMatters();
-  }
+    function renderMembershipVisual(autoPlay = true, source = "guided") {
+      membershipSource = source;
+    
+      const membershipExitButton =
+        membershipSource === "explore"
+          ? `<button class="secondary-btn membership-exit-btn" onclick="renderExploreHub()">Back to Explore</button>`
+          : membershipSource === "basics"
+            ? `<button class="secondary-btn membership-exit-btn" onclick="renderBasicsHub()">Back to Basics</button>`
+            : "";
+    
+      membershipPhase = 0;
+      membershipIsPlaying = autoPlay;
+    
+      if (membershipAutoTimer) {
+        clearTimeout(membershipAutoTimer);
+        membershipAutoTimer = null;
+      }
+    
+      document.getElementById("app").innerHTML = `
+        <div class="screen">
+          <div class="breadcrumb">Foster Youth / Guided Walkthrough</div>
+          <h1>Understanding Foster Youth Data</h1>
+    
+          <div class="presentation-frame">
+            <div class="presentation-stage-shell">
+              <div class="presentation-stage-header">
+                <div id="membership-kicker" class="scene-kicker">Foster Youth / Explainer</div>
+                <h2 id="membership-title" class="presentation-title">Why do Foster Youth counts sometimes look different than expected?</h2>
+              </div>
+    
+              <div class="presentation-canvas-wrap">
+                <div id="membership-canvas" class="membership-canvas">
+                  <div class="membership-bg-layer" aria-hidden="true">
+                    <svg viewBox="0 0 1200 400" preserveAspectRatio="none" class="bg-watermark" xmlns="http://www.w3.org/2000/svg">
+                      <defs>
+                        <radialGradient id="bgFade" cx="50%" cy="55%" r="58%">
+                          <stop offset="0%" stop-color="white" stop-opacity="0.55" />
+                          <stop offset="55%" stop-color="white" stop-opacity="0.88" />
+                          <stop offset="100%" stop-color="white" stop-opacity="1" />
+                        </radialGradient>
+                        <mask id="bgMask" maskUnits="userSpaceOnUse" x="0" y="0" width="1200" height="400">
+                          <rect x="0" y="0" width="1200" height="400" fill="url(#bgFade)" />
+                        </mask>
+                      </defs>
+    
+                      <g>
+                        <path d="M80 405 Q210 378 395 405" class="bg-line" />
+                        <path d="M140 382 Q245 362 360 385" class="bg-line faint" />
+    
+                        <path d="M745 404 Q915 377 1080 404" class="bg-line" />
+                        <path d="M805 383 Q915 364 1035 385" class="bg-line faint" />
+    
+                        <path d="M350 425 Q610 432 850 425" class="bg-line faint" />
+    
+                        <g class="bg-mountains">
+                          <path d="M120 240 L220 180 L300 240 L380 170 L460 240" class="bg-mountain" />
+                          <path d="M520 200 L600 150 L680 200 L760 135 L840 200" class="bg-mountain" />
+                          <path d="M260 240 L330 140 L400 240" class="bg-mountain bg-mountain-strong" />
+                          <path d="M600 205 L670 115 L740 205" class="bg-mountain bg-mountain-strong" />
+                          <path d="M323 165 L330 140 L337 165" class="bg-snow" />
+                          <path d="M663 139 L670 117 L677 139" class="bg-snow" />
+                        </g>
+    
+                        <path d="M205 300 Q172 326 205 369 Q238 336 205 300 Z" class="bg-line" />
+                        <path d="M205 369 L205 418" class="bg-line" />
+    
+                        <path d="M990 312 Q958 338 990 382 Q1022 348 990 312 Z" class="bg-line" />
+                        <path d="M990 382 L990 421" class="bg-line" />
+    
+                        <g class="bg-school">
+                          <path d="M505 318 L600 262 L695 318" class="bg-line" />
+                          <rect x="535" y="318" width="130" height="78" rx="7" class="bg-line" />
+                          <line x1="600" y1="318" x2="600" y2="396" class="bg-line faint" />
+                          <rect x="578" y="343" width="44" height="53" rx="4" class="bg-line" />
+                          <line x1="552" y1="344" x2="573" y2="344" class="bg-line faint" />
+                          <line x1="552" y1="361" x2="573" y2="361" class="bg-line faint" />
+                          <line x1="627" y1="344" x2="648" y2="344" class="bg-line faint" />
+                          <line x1="627" y1="361" x2="648" y2="361" class="bg-line faint" />
+                          <line x1="712" y1="289" x2="712" y2="396" class="bg-line" />
+                          <path d="M712 289 Q729 292 742 297 Q729 303 712 300 Z" class="bg-line faint" />
+                          <circle cx="600" cy="291" r="11" class="bg-line faint" />
+                        </g>
+    
+                        <g class="bg-clouds">
+                          <g transform="translate(-150, .75)">
+                            <path
+                              d="M160 148
+                                 C160 130, 178 118, 200 119
+                                 C207 106, 225 100, 244 104
+                                 C255 97, 272 99, 283 109
+                                 C297 108, 308 116, 310 128
+                                 C322 129, 330 137, 330 147
+                                 C330 160, 319 168, 304 168
+                                 L195 168
+                                 C176 168, 160 160, 160 148 Z"
+                              class="cloud-fill"
+                            />
+                          </g>
+    
+                          <g transform="translate(-275, -100)">
+                            <path
+                              d="M455 135
+                                 C455 122, 468 114, 484 115
+                                 C490 105, 502 100, 515 103
+                                 C523 97, 535 98, 543 106
+                                 C553 106, 560 112, 562 121
+                                 C571 122, 577 128, 577 136
+                                 C577 145, 569 152, 558 152
+                                 L482 152
+                                 C468 152, 455 145, 455 135 Z"
+                              class="cloud-fill"
+                            />
+                          </g>
+    
+                          <g transform="translate(200, -25)">
+                            <path
+                              d="M810 152
+                                 C810 138, 824 129, 841 130
+                                 C847 120, 861 115, 875 118
+                                 C883 112, 895 113, 903 121
+                                 C914 121, 922 128, 924 137
+                                 C933 138, 939 144, 939 152
+                                 C939 162, 930 169, 918 169
+                                 L838 169
+                                 C824 169, 810 162, 810 152 Z"
+                              class="cloud-fill"
+                            />
+                          </g>
+                        </g>
+    
+                        <g class="bg-sun" transform="translate(-125, -25)">
+                          <circle cx="1038" cy="78" r="23" class="sun-core" />
+                          <line x1="1038" y1="43" x2="1038" y2="31" class="bg-line sun-line" />
+                          <line x1="1063" y1="53" x2="1072" y2="44" class="bg-line sun-line" />
+                          <line x1="1073" y1="78" x2="1085" y2="78" class="bg-line sun-line" />
+                          <line x1="1063" y1="103" x2="1072" y2="112" class="bg-line sun-line" />
+                          <line x1="1038" y1="113" x2="1038" y2="125" class="bg-line sun-line" />
+                          <line x1="1013" y1="103" x2="1004" y2="112" class="bg-line sun-line" />
+                          <line x1="1003" y1="78" x2="991" y2="78" class="bg-line sun-line" />
+                          <line x1="1013" y1="53" x2="1004" y2="44" class="bg-line sun-line" />
+                        </g>
+                      </g>
+                    </svg>
+                  </div>
+    
+                  <div id="membership-label-expected" class="membership-label hidden-label"></div>
+                  <div id="membership-label-state" class="membership-label hidden-label"></div>
+    
+                  <div id="membership-ring-expected" class="membership-ring hidden-ring"></div>
+                  <div id="membership-ring-state" class="membership-ring hidden-ring"></div>
+    
+                  <div id="token-1" class="person-token"></div>
+                  <div id="token-2" class="person-token"></div>
+                  <div id="token-3" class="person-token"></div>
+                  <div id="token-4" class="person-token"></div>
+                  <div id="token-5" class="person-token"></div>
+                  <div id="token-6" class="person-token"></div>
+                  <div id="token-7" class="person-token"></div>
+                  <div id="token-8" class="person-token"></div>
+    
+                  <div id="expected-token-1" class="person-token scene2-token"></div>
+                  <div id="expected-token-2" class="person-token scene2-token"></div>
+                  <div id="expected-token-3" class="person-token scene2-token"></div>
+                  <div id="expected-token-4" class="person-token scene2-token"></div>
+                  <div id="expected-token-5" class="person-token scene2-token"></div>
+                  <div id="expected-token-6" class="person-token scene2-token"></div>
+                  <div id="expected-token-7" class="person-token scene2-token"></div>
+                  <div id="expected-token-8" class="person-token scene2-token"></div>
+    
+                  <div id="state-token-1" class="person-token scene2-token"></div>
+                  <div id="state-token-2" class="person-token scene2-token"></div>
+                  <div id="state-token-3" class="person-token scene2-token"></div>
+                  <div id="state-token-4" class="person-token scene2-token"></div>
+                  <div id="state-token-5" class="person-token scene2-token"></div>
+                  <div id="state-token-6" class="person-token scene2-token"></div>
+                  <div id="state-token-7" class="person-token scene2-token"></div>
+                  <div id="state-token-8" class="person-token scene2-token"></div>
+                </div>
+              </div>
+    
+              <div id="membership-caption" class="presentation-text"></div>
+            </div>
+    
+            <div class="frame-bottom-bar">
+              ${membershipExitButton}
+    
+              <div class="frame-nav-row">
+                <button class="nav-icon-btn replay-btn" onclick="playMembershipMotion()" title="Replay"></button>
+                <button class="nav-icon-btn back-btn" onclick="goMembershipMotionBack()" title="Back"></button>
+                <button class="nav-icon-btn next-btn primary-icon" onclick="goMembershipMotionNext()" title="Next"></button>
+                <button class="nav-icon-btn home-btn" onclick="renderHome()" title="Home"></button>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+    
+      initializeMembershipTokens();
+      membershipIsPlaying = false;
+      showMembershipPhase(0);
+    }
    
    function renderInclusionIntro() {
    clearInclusionIntroTimers();
