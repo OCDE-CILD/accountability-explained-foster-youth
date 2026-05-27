@@ -55,6 +55,41 @@
      activateModuleNextCue();
    }, 900 + cards.length * 900);
    }
+
+  function renderHome() {
+    document.getElementById("app").innerHTML = `
+      <div class="screen">
+        <h1>Foster Youth</h1>
+        <p class="subtitle">Choose how you want to explore this module.</p>
+  
+        <div class="home-tile-grid">
+          <button class="choice-card tile-basics home-feature-card" onclick="renderBasicsHub()">
+            <div class="home-card-accent accent-basics"></div>
+            <span class="card-title">The Basics</span>
+            <span class="card-text">
+              Start with foundational Foster Youth concepts like who is included, why counts may differ, and how to interpret the data.
+            </span>
+          </button>
+  
+          <button class="choice-card tile-half home-feature-card" onclick="renderGuidedIntro()">
+            <div class="home-card-accent accent-guided"></div>
+            <span class="card-title">Guided Walkthrough</span>
+            <span class="card-text">
+              Follow a short guided path through the most important Foster Youth concepts.
+            </span>
+          </button>
+  
+          <button class="choice-card tile-half home-feature-card" onclick="renderExploreHub()">
+            <div class="home-card-accent accent-explore"></div>
+            <span class="card-title">Explore on Your Own</span>
+            <span class="card-text">
+              Jump directly to a topic like Suspension, Graduation, or Chronic Absenteeism.
+            </span>
+          </button>
+        </div>
+      </div>
+    `;
+  }
    
    function renderInclusionVisual(autoPlay = true, source = "basics") {
    inclusionSource = source;
