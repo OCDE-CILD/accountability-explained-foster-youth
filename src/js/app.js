@@ -90,6 +90,171 @@
       </div>
     `;
   }
+
+function renderBasicsHub() {
+  document.getElementById("app").innerHTML = `
+    <div class="screen">
+      <div class="breadcrumb">Foster Youth / Basics</div>
+      <h1>The Basics</h1>
+      <p class="subtitle">
+        Start here for the foundational concepts that help explain Foster Youth reporting.
+      </p>
+
+      <div class="basics-tile-grid">
+        <button class="choice-card basics-video-tile" onclick="renderInclusionVisual(true)">
+          <div class="tile-visual tile-include">
+            <svg class="tile-svg" viewBox="0 0 320 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <circle cx="120" cy="45" r="10" class="person-fill strong"></circle>
+              <rect x="110" y="55" width="20" height="24" rx="8" class="person-fill strong"></rect>
+              <circle cx="160" cy="40" r="11" class="person-fill strong"></circle>
+              <rect x="148" y="52" width="24" height="28" rx="10" class="person-fill strong"></rect>
+              <circle cx="200" cy="45" r="10" class="person-fill strong"></circle>
+              <rect x="190" y="55" width="20" height="24" rx="8" class="person-fill strong"></rect>
+            </svg>
+          </div>
+          <span class="card-title">Who Is Included?</span>
+          <span class="card-text">
+            Learn which students are included as Foster Youth and why local awareness
+            does not always match official reporting.
+          </span>
+        </button>
+
+        <button class="choice-card basics-video-tile" onclick="renderMembershipVisual(true, 'basics')">
+          <div class="tile-visual tile-counts">
+            <svg class="tile-svg" viewBox="0 0 320 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <g transform="translate(0,16)">
+                <line x1="104" y1="72" x2="140" y2="48" stroke="rgba(255,255,255,0.34)" stroke-width="4" stroke-linecap="round"></line>
+                <line x1="184" y1="48" x2="220" y2="24" stroke="rgba(255,255,255,0.34)" stroke-width="4" stroke-linecap="round"></line>
+                <rect x="60" y="68" width="44" height="8" rx="4" fill="rgba(255,255,255,0.34)"></rect>
+                <circle cx="82" cy="50" r="6" fill="rgba(255,255,255,0.34)"></circle>
+                <rect x="75" y="56" width="14" height="10" rx="5" fill="rgba(255,255,255,0.34)"></rect>
+                <rect x="140" y="44" width="44" height="8" rx="4" fill="rgba(255,255,255,0.52)"></rect>
+                <circle cx="162" cy="26" r="6" fill="rgba(255,255,255,0.52)"></circle>
+                <rect x="155" y="32" width="14" height="10" rx="5" fill="rgba(255,255,255,0.52)"></rect>
+                <rect x="220" y="20" width="44" height="8" rx="4" fill="rgba(255,255,255,0.70)"></rect>
+                <circle cx="242" cy="2" r="5.5" fill="rgba(255,255,255,0.70)"></circle>
+                <rect x="235.5" y="7.5" width="13" height="10" rx="5" fill="rgba(255,255,255,0.70)"></rect>
+              </g>
+            </svg>
+          </div>
+          <span class="card-title">Why Counts Differ</span>
+          <span class="card-text">
+            See why Foster Youth counts may not match expectations and how CALPADS
+            identification affects reporting.
+          </span>
+        </button>
+
+        <button class="choice-card basics-video-tile" onclick="renderIndicatorsOverview()">
+          <div class="tile-visual tile-indicators">
+            <svg class="tile-svg" viewBox="0 0 320 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M80 80 A60 60 0 0 1 112 42" class="gauge-red"></path>
+              <path d="M112 42 A60 60 0 0 1 152 28" class="gauge-orange"></path>
+              <path d="M152 28 A60 60 0 0 1 192 32" class="gauge-yellow"></path>
+              <path d="M192 32 A60 60 0 0 1 226 50" class="gauge-green"></path>
+              <path d="M226 50 A60 60 0 0 1 240 80" class="gauge-blue"></path>
+              <line x1="160" y1="80" x2="206" y2="47" class="gauge-needle"></line>
+              <circle cx="160" cy="80" r="6" class="gauge-hub"></circle>
+            </svg>
+          </div>
+          <span class="card-title">Across Indicators</span>
+          <span class="card-text">
+            Understand how Foster Youth appear within indicators like Suspension,
+            Graduation, and Chronic Absenteeism.
+          </span>
+        </button>
+      </div>
+
+      ${buildModuleBottomBar({
+        leftLabel: "Back",
+        leftAction: "renderHome()",
+        backAction: "renderHome()",
+        homeAction: "renderHome()"
+      })}
+    </div>
+  `;
+}
+
+function renderGuidedIntro() {
+  document.getElementById("app").innerHTML = `
+    <div class="screen">
+      <div class="breadcrumb">Foster Youth / Guided Walkthrough</div>
+      <h1>Guided Walkthrough</h1>
+      <p>This path is designed for first-time users who want a clear introduction to Foster Youth accountability.</p>
+
+      <div class="info-box">
+        <strong>Suggested sequence:</strong>
+        <ol>
+          <li>Why Foster Youth data can be confusing</li>
+          <li>Why counts may differ</li>
+          <li>Who Counts as Foster Youth?</li>
+          <li>How Foster Youth appear across indicators</li>
+          <li>Foster Youth in Suspension</li>
+        </ol>
+      </div>
+
+      <div class="button-row">
+        <button class="primary-btn" onclick="renderWhyMatters()">Begin</button>
+        <button class="secondary-btn" onclick="renderHome()">Back</button>
+      </div>
+    </div>
+  `;
+}
+
+  function renderExploreHub() {
+    document.getElementById("app").innerHTML = `
+      <div class="screen">
+        <div class="breadcrumb">Foster Youth / Explore</div>
+        <h1>Explore Foster Youth Topics</h1>
+  
+        <div class="info-box">
+          <strong>What result are you trying to interpret?</strong>
+  
+          <div class="button-stack" style="margin-top:16px;">
+            <button class="decision-btn" onclick="renderSuspension('explore')">
+              Why did Foster Youth suspension change?
+            </button>
+  
+            <button class="decision-btn" onclick="renderIndicatorPlaceholder('Graduation')">
+              How are Foster Youth reflected in Graduation?
+            </button>
+  
+            <button class="decision-btn" onclick="renderIndicatorPlaceholder('Chronic Absenteeism')">
+              How are Foster Youth reflected in Chronic Absenteeism?
+            </button>
+  
+            <button class="decision-btn" onclick="renderIndicatorPlaceholder('College/Career Indicator (CCI)')">
+              How are Foster Youth reflected in the College/Career Indicator (CCI)?
+            </button>
+  
+            <button class="decision-btn" onclick="renderIndicatorPlaceholder('Science')">
+              How are Foster Youth reflected in Science?
+            </button>
+          </div>
+        </div>
+  
+        <div class="info-box">
+          <strong>Browse indicator topics</strong>
+  
+          <div class="hotspot-grid" style="margin-top:16px;">
+            <button class="hotspot" onclick="renderSuspension('explore')">Suspension</button>
+            <button class="hotspot" onclick="renderIndicatorPlaceholder('Graduation')">Graduation</button>
+            <button class="hotspot" onclick="renderIndicatorPlaceholder('Chronic Absenteeism')">Chronic Absenteeism</button>
+            <button class="hotspot" onclick="renderIndicatorPlaceholder('College/Career Indicator (CCI)')">College/Career Indicator (CCI)</button>
+            <button class="hotspot" onclick="renderIndicatorPlaceholder('Science')">Science</button>
+            <button class="hotspot" onclick="renderIndicatorPlaceholder('Academic Indicators')">Academic Indicators</button>
+            <button class="hotspot" onclick="renderResources()">Resources</button>
+          </div>
+        </div>
+  
+        ${buildModuleBottomBar({
+          leftLabel: "Back",
+          leftAction: "renderHome()",
+          backAction: "renderHome()",
+          homeAction: "renderHome()"
+        })}
+      </div>
+    `;
+  }
    
    function renderInclusionVisual(autoPlay = true, source = "basics") {
    inclusionSource = source;
