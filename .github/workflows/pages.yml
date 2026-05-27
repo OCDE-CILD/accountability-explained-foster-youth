@@ -26,15 +26,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Prepare site
-        run: |
-          mkdir -p site
-          cp -R src/. site/
-
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v4
         with:
-          path: site
+          path: ./src
 
       - name: Deploy to GitHub Pages
         id: deployment
