@@ -336,6 +336,10 @@ function renderGuidedIntro() {
    inclusionSource = source;
    renderInclusionIntro();
    }
+
+  function renderMembershipVisual(autoPlay = true, source = "basics") {
+    renderInclusionVisual(autoPlay, source);
+  }
    
    function renderInclusionIntro() {
    clearInclusionIntroTimers();
