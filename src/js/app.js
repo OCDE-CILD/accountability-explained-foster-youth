@@ -56,6 +56,82 @@
    }, 900 + cards.length * 900);
    }
 
+function renderWhyMatters() {
+  document.getElementById("app").innerHTML = `
+    <div class="screen">
+      <div class="breadcrumb">Foster Youth / Guided Walkthrough</div>
+      <h1>Why Foster Youth data can be confusing</h1>
+      <p>
+        Local awareness of a student’s situation does not always match the official
+        identification used in accountability reporting.
+      </p>
+
+      <div class="info-box">
+        <strong>Choose a topic to learn more:</strong>
+      </div>
+
+      <div class="hotspot-grid">
+        <button class="hotspot" onclick="showWhyDetail('identification')">Identification</button>
+        <button class="hotspot" onclick="showWhyDetail('size')">Student Group Size</button>
+        <button class="hotspot" onclick="showWhyDetail('timing')">Data Timing</button>
+      </div>
+
+      <div id="why-detail"></div>
+
+      ${buildModuleBottomBar({
+        leftLabel: "Back",
+        leftAction: "renderGuidedIntro()",
+        backAction: "renderGuidedIntro()",
+        nextAction: "renderInclusionIntro()",
+        homeAction: "renderHome()"
+      })}
+    </div>
+  `;
+}
+
+function showWhyDetail(type) {
+  let content = "";
+
+  if (type === "identification") {
+    content = `
+      <div class="info-box">
+        <strong>Identification</strong>
+        <p>
+          Foster Youth inclusion depends on official identification in state systems.
+          Local knowledge of a student’s situation does not always match how the student
+          appears in accountability reporting.
+        </p>
+      </div>
+    `;
+  }
+
+  if (type === "size") {
+    content = `
+      <div class="info-box">
+        <strong>Student Group Size</strong>
+        <p>
+          Foster Youth groups are often small. That means one or two students can change
+          a rate noticeably from one year to the next.
+        </p>
+      </div>
+    `;
+  }
+
+  if (type === "timing") {
+    content = `
+      <div class="info-box">
+        <strong>Data Timing</strong>
+        <p>
+          Enrollment changes, reporting windows, and when students are identified can
+          affect whether they appear in a specific indicator.
+        </p>
+      </div>
+    `;
+  }
+
+  document.getElementById("why-detail").innerHTML = content;
+}
+
   function renderHome() {
     document.getElementById("app").innerHTML = `
       <div class="screen">
